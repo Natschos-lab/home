@@ -18,7 +18,7 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            padding: 40px 20px;
+            padding: 40px 20px 100px 20px; /* Espace ajouté en bas pour la pub flottante */
             box-sizing: border-box;
         }
 
@@ -71,7 +71,6 @@
             background: linear-gradient(45deg, #ff007f, #00d4ff);
             -webkit-background-clip: text;
             background-clip: text;
-            /* Correction ajoutée ici ! */
             -webkit-text-fill-color: transparent;
 
             filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.4));
@@ -131,49 +130,69 @@
             filter: drop-shadow(0 8px 16px rgba(255, 255, 255, 0.15));
         }
 
-        /* ========================================================
-     RÉSOLUTION DES PROBLÈMES POUR LES TÉLÉPHONES (RESPONSIVE)
-     ======================================================== */
-        @media (max-width: 768px) {
+        /* --- STYLES PUBLICITÉS --- */
+        /* Pub 1 : Bannière bas de page */
+        .ad-bottom-banner {
+            margin-top: 50px;
+            text-align: center;
+            z-index: 1;
+            max-width: 100%;
+            overflow: hidden;
+        }
 
-            /* Ajustement de la page */
+        /* Pub 2 : Widget flottant dans le coin inférieur droit */
+        .ad-floating-corner {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            z-index: 9999;
+            pointer-events: auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            background: rgba(11, 15, 25, 0.8);
+        }
+
+        /* --- RESPONSIVE MOBILE --- */
+        @media (max-width: 768px) {
             body {
-                padding: 20px 10px;
+                padding: 20px 10px 120px 10px;
             }
 
-            /* Le titre devient plus petit pour rentrer sur l'écran */
             .page-title {
                 font-size: 2rem;
                 margin: 0 0 30px 0;
                 letter-spacing: 1px;
             }
 
-            /* La galerie passe en colonne (les jeux s'empilent) */
             .flex-gallery {
                 flex-direction: column;
-                /* Organise de haut en bas */
                 gap: 25px;
-                /* Réduit l'espace géant entre les jeux */
                 width: 100%;
             }
 
-            /* Les boîtes en verre prennent toute la largeur dispo */
             .image-link {
                 width: 90%;
                 padding: 15px;
             }
 
-            /* Les images rétrécissent un peu pour rester jolies */
             .image-link img {
                 max-height: 130px;
             }
 
-            /* Désactive l'effet de rebond sur mobile car il n'y a pas de souris */
             .image-link:hover {
                 transform: none;
                 box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
                 background: rgba(255, 255, 255, 0.03);
                 border: 1px solid rgba(255, 255, 255, 0.08);
+            }
+
+            /* Réduction du widget flottant sur mobile pour ne pas masquer les jeux */
+            .ad-floating-corner {
+                transform: scale(0.75);
+                transform-origin: bottom right;
+                bottom: 5px;
+                right: 5px;
             }
         }
     </style>
@@ -184,20 +203,35 @@
     <h1 class="page-title">Bienvenue sur la page de jeux</h1>
 
     <div class="flex-gallery">
-        <!-- IMAGE 1 : INTRUSION -->
         <a href="https://natschos-lab.github.io/Intrusion/" class="image-link" title="Aller vers Intrusion">
-            <img src="home/intr.png" alt="Intrusion">
+            <img src="intr.png" alt="Intrusion">
         </a>
 
-        <!-- IMAGE 2 : TUTUSMO -->
         <a href="https://natschos-lab.github.io/Game-laboratory-/" class="image-link" title="Aller vers Tutusmo">
-            <img src="home/tutusmo.png" alt="Tutusmo">
+            <img src="tutusmo.png" alt="Tutusmo">
         </a>
 
-        <!-- IMAGE 3 : TOUPIL -->
         <a href="https://natschos-lab.github.io/Toupil/" class="image-link" title="Aller vers Toupil">
-            <img src="home/toupil.png" alt="Toupil">
+            <img src="toupil.png" alt="Toupil">
         </a>
+    </div>
+
+    <div class="ad-bottom-banner">
+        <script>
+            atOptions = {
+                'key': '9ac2120247ce679d90da2d3bd61640e4',
+                'format': 'iframe',
+                'height': 60,
+                'width': 468,
+                'params': {}
+            };
+        </script>
+        <script src="https://www.highrevenueformat.com/9ac2120247ce679d90da2d3bd61640e4/invoke.js"></script>
+    </div>
+
+    <div class="ad-floating-corner">
+        <script async="async" data-cfasync="false" src="https://pl31112176.profitableratecpmnetwork.com/ac693f7c1ffb309e22684f892c0f31b6/invoke.js"></script>
+        <div id="container-ac693f7c1ffb309e22684f892c0f31b6"></div>
     </div>
 
 </body>
