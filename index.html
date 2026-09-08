@@ -5,140 +5,258 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienvenue sur la page de jeux</title>
+    <!-- Police gaming modern -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
     <style>
-        /* --- ARRIÈRE-PLAN STYLÉ --- */
-        body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0b0f19;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            padding: 40px 20px;
+        /* --- VARIABLES DE DESIGN & COULEURS GAMING --- */
+        :root {
+            --bg-dark: #070913;
+            --accent-pink: #ff007f;
+            --accent-cyan: #00f0ff;
+            --accent-purple: #7000ff;
+            --card-bg: rgba(18, 24, 43, 0.5);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --card-border-hover: rgba(0, 240, 255, 0.5);
+            --text-main: #f3f4f6;
+        }
+
+        * {
             box-sizing: border-box;
         }
 
-        body::before,
-        body::after {
-            content: '';
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(120px);
-            z-index: -1;
-            animation: float 12s infinite ease-in-out alternate;
+        /* --- ARRIÈRE-PLAN ANIMÉ & CANVAS D'ÉTOILES --- */
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Outfit', 'Segoe UI', Tahoma, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            padding: 40px 20px;
         }
 
-        body::before {
+        /* Canvas pour les particules */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Orbes Néon Floues */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(140px);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.6;
+            animation: pulse-float 10s infinite ease-in-out alternate;
+        }
+
+        .orb-1 {
             width: 450px;
             height: 450px;
-            background: rgba(144, 30, 80, 0.45);
-            top: 5%;
-            left: 10%;
+            background: radial-gradient(circle, var(--accent-pink), var(--accent-purple));
+            top: -10%;
+            left: -5%;
         }
 
-        body::after {
-            width: 550px;
-            height: 550px;
-            background: rgba(29, 78, 216, 0.4);
-            bottom: 5%;
-            right: 10%;
-            animation-delay: -6s;
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-cyan), var(--accent-purple));
+            bottom: -15%;
+            right: -5%;
+            animation-delay: -5s;
         }
 
-        @keyframes float {
+        @keyframes pulse-float {
             0% {
                 transform: translate(0, 0) scale(1);
             }
-
             100% {
-                transform: translate(40px, -40px) scale(1.2);
+                transform: translate(50px, 30px) scale(1.15);
             }
         }
 
-        /* --- LE SUPER TITRE --- */
+        /* --- EN-TÊTE CENTRÉE SUR TOUS LES ÉCRANS --- */
+        .header-container {
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 50px;
+            width: 100%;
+        }
+
+        .badge-live {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+            margin-bottom: 16px;
+            backdrop-filter: blur(10px);
+            font-weight: 600;
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-cyan);
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(0.8); }
+        }
+
         .page-title {
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             font-weight: 900;
             text-transform: uppercase;
-            text-align: center;
-            margin: 0 0 50px 0;
+            margin: 0;
             letter-spacing: 3px;
-
-            background: linear-gradient(45deg, #ff007f, #00d4ff);
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-cyan) 50%, var(--accent-pink) 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.4));
+            line-height: 1.2;
+        }
 
-            filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.4));
-            z-index: 1;
+        .page-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
         }
 
         /* --- GALERIE FLEXBOX --- */
         .flex-gallery {
             display: flex;
             flex-wrap: wrap;
-            gap: 60px;
+            gap: 40px;
             justify-content: center;
             align-items: center;
             max-width: 1200px;
-            z-index: 1;
+            width: 100%;
+            z-index: 2;
         }
 
-        /* --- EFFET "GLASSMORPHISM" --- */
         .image-link {
+            position: relative;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             text-decoration: none;
             border-radius: 24px;
-            padding: 20px;
+            padding: 24px;
+            width: 280px;
+            height: 240px;
 
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
 
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--card-border);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
 
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+        }
+
+        .image-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .image-link:hover::before {
+            left: 100%;
         }
 
         .image-link:hover {
-            transform: translateY(-15px) scale(1.05);
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6),
-                inset 0 0 20px rgba(255, 255, 255, 0.05);
+            transform: translateY(-12px) scale(1.04);
+            background: rgba(255, 255, 255, 0.07);
+            border-color: var(--card-border-hover);
+            box-shadow: 0 20px 50px rgba(0, 240, 255, 0.25),
+                        0 0 30px rgba(255, 0, 127, 0.2),
+                        inset 0 0 15px rgba(255, 255, 255, 0.1);
         }
 
-        /* --- LES IMAGES --- */
         .image-link img {
             display: block;
             max-width: 100%;
-            max-height: 180px;
-            border-radius: 12px;
+            max-height: 140px;
+            border-radius: 14px;
             object-fit: contain;
-            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5));
-            transition: filter 0.3s ease;
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
+            transition: transform 0.4s ease, filter 0.4s ease;
+            z-index: 1;
         }
 
         .image-link:hover img {
-            filter: drop-shadow(0 8px 16px rgba(255, 255, 255, 0.15));
+            transform: scale(1.08);
+            filter: drop-shadow(0 12px 24px rgba(0, 240, 255, 0.4));
         }
 
-        /* --- SECTION PUBS EN BAS DE PAGE (SANS OVERLAY / SANS BLOCAGE) --- */
+        .game-title-label {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0.8;
+            transition: color 0.3s ease, opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .image-link:hover .game-title-label {
+            opacity: 1;
+            color: var(--accent-cyan);
+            text-shadow: 0 0 10px var(--accent-cyan);
+        }
+
+        /* --- SECTION PUB --- */
         .ads-container {
             margin-top: 60px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
+            justify-content: center;
             width: 100%;
-            z-index: 1;
+            z-index: 2;
         }
 
         .ad-box {
@@ -149,46 +267,50 @@
             justify-content: center;
             align-items: center;
             background: rgba(255, 255, 255, 0.02);
-            border-radius: 8px;
-            overflow: hidden; /* Empêche le script publicitaire de dépasser */
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
         /* --- RESPONSIVE MOBILE --- */
         @media (max-width: 768px) {
             body {
-                padding: 20px 10px;
+                padding: 30px 15px;
+            }
+
+            .header-container {
+                margin-bottom: 35px;
             }
 
             .page-title {
                 font-size: 2rem;
-                margin: 0 0 30px 0;
+                letter-spacing: 1px;
+            }
+
+            .page-subtitle {
+                font-size: 0.85rem;
                 letter-spacing: 1px;
             }
 
             .flex-gallery {
                 flex-direction: column;
-                gap: 25px;
-                width: 100%;
+                gap: 20px;
             }
 
             .image-link {
-                width: 90%;
-                padding: 15px;
-            }
-
-            .image-link img {
-                max-height: 130px;
+                width: 100%;
+                max-width: 320px;
+                height: 200px;
             }
 
             .image-link:hover {
-                transform: none;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-                background: rgba(255, 255, 255, 0.03);
-                border: 1px solid rgba(255, 255, 255, 0.08);
+                transform: translateY(-5px);
             }
 
             .ad-box {
-                transform: scale(0.85); /* S'adapte parfaitement aux petits écrans */
+                transform: scale(0.85);
             }
         }
     </style>
@@ -196,24 +318,38 @@
 
 <body>
 
-    <h1 class="page-title">Bienvenue sur la page de jeux</h1>
+    <canvas id="bg-canvas"></canvas>
 
-    <div class="flex-gallery">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <header class="header-container">
+        <div class="badge-live">
+            <span class="badge-dot"></span>
+            Game Laboratory
+        </div>
+        <h1 class="page-title">Bienvenue sur la page de jeux</h1>
+        <p class="page-subtitle">Choisissez votre aventure et commencez à jouer</p>
+    </header>
+
+    <main class="flex-gallery">
         <a href="https://natschos-lab.github.io/Intrusion/" class="image-link" title="Aller vers Intrusion">
             <img src="intr.png" alt="Intrusion">
+            <span class="game-title-label">Intrusion</span>
         </a>
 
         <a href="https://natschos-lab.github.io/Game-laboratory-/" class="image-link" title="Aller vers Tutusmo">
             <img src="tutusmo.png" alt="Tutusmo">
+            <span class="game-title-label">Tutusmo</span>
         </a>
 
         <a href="https://natschos-lab.github.io/Toupil/" class="image-link" title="Aller vers Toupil">
             <img src="toupil.png" alt="Toupil">
+            <span class="game-title-label">Toupil</span>
         </a>
-    </div>
+    </main>
 
-    <div class="ads-container">
-        
+    <footer class="ads-container">
         <div class="ad-box">
             <script type="text/javascript">
                 atOptions = {
@@ -226,14 +362,64 @@
             </script>
             <script type="text/javascript" src="https://www.highrevenueformat.com/9ac2120247ce679d90da2d3bd61640e4/invoke.js"></script>
         </div>
+    </footer>
 
-        <div class="ad-box">
-            <script async="async" data-cfasync="false" src="https://pl31112176.profitableratecpmnetwork.com/ac693f7c1ffb309e22684f892c0f31b6/invoke.js"></script>
-            <div id="container-ac693f7c1ffb309e22684f892c0f31b6"></div>
-        </div>
+    <!-- Script JS avec 180 particules animées -->
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
 
-    </div>
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
+        const particles = [];
+        const particleCount = 180;
+        const colors = ['#00f0ff', '#ff007f', '#7000ff', '#ffffff'];
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2 + 0.5,
+                alpha: Math.random() * 0.7 + 0.2,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                speedX: (Math.random() - 0.5) * 0.4,
+                speedY: -Math.random() * 0.6 - 0.2,
+                pulseSpeed: Math.random() * 0.02 + 0.005
+            });
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(p => {
+                p.x += p.speedX;
+                p.y += p.speedY;
+                p.alpha += Math.sin(Date.now() * p.pulseSpeed) * 0.01;
+
+                if (p.y < 0) p.y = canvas.height;
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = Math.max(0.1, Math.min(0.9, p.alpha));
+                ctx.shadowBlur = p.radius * 4;
+                ctx.shadowColor = p.color;
+                ctx.fill();
+            });
+
+            ctx.globalAlpha = 1.0;
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+    </script>
 </body>
 
 </html>
