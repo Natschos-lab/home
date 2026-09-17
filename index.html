@@ -274,6 +274,14 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
+        .ad-frame {
+            display: block;
+            width: 468px;
+            max-width: 100%;
+            height: 60px;
+            border: 0;
+        }
+
         /* --- RESPONSIVE MOBILE --- */
         @media (max-width: 768px) {
             body {
@@ -351,16 +359,14 @@
 
     <footer class="ads-container">
         <div class="ad-box">
-            <script type="text/javascript">
-                atOptions = {
-                    'key': '9ac2120247ce679d90da2d3bd61640e4',
-                    'format': 'iframe',
-                    'height': 60,
-                    'width': 468,
-                    'params': {}
-                };
-            </script>
-            <script type="text/javascript" src="https://www.highrevenueformat.com/9ac2120247ce679d90da2d3bd61640e4/invoke.js"></script>
+            <iframe
+                class="ad-frame"
+                title="Publicité"
+                loading="lazy"
+                referrerpolicy="no-referrer"
+                sandbox="allow-scripts allow-forms"
+                srcdoc="<!doctype html><html lang='fr'><head><meta charset='utf-8'><style>html,body{margin:0;width:100%;height:60px;overflow:hidden;background:transparent}</style></head><body><script>var atOptions={key:'9ac2120247ce679d90da2d3bd61640e4',format:'iframe',height:60,width:468,params:{}};</script><script src='https://www.highrevenueformat.com/9ac2120247ce679d90da2d3bd61640e4/invoke.js'></script></body></html>">
+            </iframe>
         </div>
     </footer>
 
